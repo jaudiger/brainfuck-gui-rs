@@ -1,0 +1,56 @@
+name: Continuous Deployment
+
+on:
+  workflow_run:
+    workflows: ["Continuous Integration - Static Analysis", "Continuous Integration - Audit"]
+    types: [completed]
+    branches: [main]
+
+concurrency:
+  group: deployment
+  cancel-in-progress: false
+
+env:
+  WASM_TARGET: wasm32-unknown-unknown
+  TRUNK_OUTPUT_DIR: dist
+
+jobs:
+  deployment:
+    if: ${{ github.event.workflow_run.conclusion == 'success'
+      && github.event.workflow_run.name == 'Continuous Integration - Static Analysis' }}
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Install Rust (stable)
+        uses: dtolnay/rust-toolchain@v1
+        with:
+          toolchain: stable
+          targets: ${{ env.WASM_TARGET }}
+
+      - name: Cache cargo registry + build
+        uses: actions/cache@v4
+        with:
+          path: |
+            ~/.cargo/.crates.toml
+            ~/.cargo/.crates2.json
+            ~/.cargo/bin
+            ~/.cargo/git/db
+            ~/.cargo/registry/cache
+            ~/.cargo/registry/index
+            target
+          key: deployment-${{ hashFiles('**/Cargo.lock') }}
+
+      - name: Install trunk
+        run: cargo install trunk --locked
+
+      - name: Build
+        run: trunk build --release --public-url "/"
+
+      - name: Deploy to Cloudflare Pages
+        uses: cloudflare/wrangler-action@v3
+        with:
+          apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+          command: pages deploy ${{ env.TRUNK_OUTPUT_DIR }} --project-name=${{ github.event.repository.name }} --branch=${{ github.ref_name }}
