@@ -10,6 +10,12 @@ To run it locally in your Web browser, you can use [trunk](https://trunkrs.dev),
 trunk serve
 ```
 
+Wasm is not the only target of this application, the GUI can also be run as a desktop application with:
+
+```bash
+cargo run
+```
+
 ### Alternative
 
 The Wasm file is served through Cloudflare Pages. To see it in action, open your Web browser and navigate to [https://brainfuck-gui-rs.jaudiger.dev/](https://brainfuck-gui-rs.jaudiger.dev/).
