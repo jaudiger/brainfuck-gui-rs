@@ -1,4 +1,4 @@
-# Brainfuck GUI (Wasm)
+# Brainfuck interpreter GUI (WebAssembly)
 
 ## Instructions
 
