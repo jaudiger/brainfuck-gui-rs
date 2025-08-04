@@ -29,6 +29,12 @@ jobs:
           toolchain: stable
           targets: ${{ env.WASM_TARGET }}
 
+      - name: Install Brioche
+        uses: brioche-dev/setup-brioche@v1.3.1
+
+      - name: Install trunk
+        run: brioche install -r trunk
+
       - name: Cache cargo registry + build
         uses: actions/cache@v4.2.3
         with:
@@ -41,9 +47,6 @@ jobs:
             ~/.cargo/registry/index
             target
           key: deployment-${{ hashFiles('**/Cargo.lock') }}
-
-      - name: Install trunk
-        run: cargo install trunk --locked
 
       - name: Build
         run: trunk build --release --public-url "/"
