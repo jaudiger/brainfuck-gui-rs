@@ -3,7 +3,7 @@ name = "brainfuck-gui-rs"
 version = "1.0.0"
 authors = ["Jérémy Audiger"]
 edition = "2024"
-rust-version = "1.88"
+rust-version = "1.89"
 
 [dependencies]
 brainfuck-rs = { git = "https://github.com/jaudiger/brainfuck-rs", rev = "2f5b05d6f8c3e4d6440c3731f25166c061d2445a" }
