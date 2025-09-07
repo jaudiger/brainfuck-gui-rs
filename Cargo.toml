@@ -7,8 +7,8 @@ rust-version = "1.89"
 
 [dependencies]
 brainfuck-rs = { git = "https://github.com/jaudiger/brainfuck-rs", rev = "2f5b05d6f8c3e4d6440c3731f25166c061d2445a" }
-egui = "0.32.1"
-eframe = { version = "0.32.1", features = ["wgpu"] }
+egui = "0.32.2"
+eframe = { version = "0.32.2", features = ["wgpu"] }
 wgpu = { version = "25.0.2", default-features = false, features = [
     "webgpu",
     "webgl",
@@ -16,7 +16,7 @@ wgpu = { version = "25.0.2", default-features = false, features = [
 tracing = "0.1.41"
 
 [target.'cfg(target_arch = "wasm32")'.dependencies]
-wasm-bindgen-futures = "0.4.50"
+wasm-bindgen-futures = "0.4.51"
 tracing-wasm = "0.2.1"
 
 [lints.clippy]
