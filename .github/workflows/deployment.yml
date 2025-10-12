@@ -30,7 +30,7 @@ jobs:
           targets: ${{ env.WASM_TARGET }}
 
       - name: Install Brioche
-        uses: brioche-dev/setup-brioche@v1.4.0
+        uses: brioche-dev/setup-brioche@v1.4.1
 
       - name: Install trunk
         run: brioche install -r trunk
