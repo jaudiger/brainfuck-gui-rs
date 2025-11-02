@@ -305,7 +305,7 @@ impl eframe::App for BrainfuckGui {
         });
 
         // Get half width of the screen for side panels
-        let half = ctx.screen_rect().width() * 0.5;
+        let half = ctx.content_rect().width() * 0.5;
 
         egui::SidePanel::left("input_panel")
             .resizable(false)
