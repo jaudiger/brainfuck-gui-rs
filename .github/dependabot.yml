@@ -14,10 +14,6 @@ updates:
     allow:
       - dependency-type: direct # Dependencies explicitly defined in the Cargo.toml file
       - dependency-type: indirect # Dependencies implicitly defined in the Cargo.lock file
-    ignore:
-      # Do not update wgpu dependencies, it's a transient dependency from egui that is currently defined in the Cargo.toml file to override the default features.
-      # But the version should still be managed by egui
-      - dependency-name: "wgpu*"
     groups:
       cargo:
         patterns:

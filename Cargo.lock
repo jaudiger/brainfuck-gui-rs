@@ -468,7 +468,6 @@ dependencies = [
  "tracing",
  "tracing-wasm",
  "wasm-bindgen-futures",
- "wgpu",
 ]
 
 [[package]]
