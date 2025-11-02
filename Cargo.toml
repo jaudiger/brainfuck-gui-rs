@@ -7,11 +7,10 @@ rust-version = "1.91"
 
 [dependencies]
 brainfuck-rs = { git = "https://github.com/jaudiger/brainfuck-rs", rev = "ebff356a881400771dfa7fc47e48238996409626" }
-egui = "0.32.3"
-eframe = { version = "0.32.3", features = ["wgpu"] }
-wgpu = { version = "25.0.2", default-features = false, features = [
-    "webgpu",
-    "webgl",
+egui = "0.33.0"
+eframe = { version = "0.33.0", features = ["wgpu"] }
+wgpu = { version = "27.0.1", default-features = false, features = [
+    "webgpu"
 ] }
 tracing = "0.1.41"
 
