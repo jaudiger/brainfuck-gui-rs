@@ -9,7 +9,7 @@ rust-version = "1.91"
 brainfuck-rs = { git = "https://github.com/jaudiger/brainfuck-rs", rev = "ebff356a881400771dfa7fc47e48238996409626" }
 egui = "0.33.3"
 eframe = { version = "0.33.3", features = ["wgpu"] }
-tracing = "0.1.43"
+tracing = "0.1.44"
 
 [target.'cfg(target_arch = "wasm32")'.dependencies]
 wasm-bindgen-futures = "0.4.56"
