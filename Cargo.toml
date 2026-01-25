@@ -3,10 +3,10 @@ name = "brainfuck-gui-rs"
 version = "1.0.0"
 authors = ["Jérémy Audiger"]
 edition = "2024"
-rust-version = "1.91"
+rust-version = "1.93"
 
 [dependencies]
-brainfuck-rs = { git = "https://github.com/jaudiger/brainfuck-rs", rev = "ebff356a881400771dfa7fc47e48238996409626" }
+brainfuck-rs = { git = "https://github.com/jaudiger/brainfuck-rs", rev = "6d537569b24454bf1e98565a165042146249e917" }
 egui = "0.33.3"
 eframe = { version = "0.33.3", features = ["wgpu"] }
 tracing = "0.1.44"
