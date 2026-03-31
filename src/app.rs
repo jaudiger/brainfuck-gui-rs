@@ -234,12 +234,15 @@ impl BrainfuckGui {
 }
 
 impl eframe::App for BrainfuckGui {
-    fn update(&mut self, ctx: &egui::Context, _frame: &mut eframe::Frame) {
+    fn logic(&mut self, ctx: &egui::Context, _frame: &mut eframe::Frame) {
         if self.running {
             self.brainfuck_step();
+            ctx.request_repaint();
         }
+    }
 
-        egui::TopBottomPanel::top("brainfuck_code_panel").show(ctx, |ui| {
+    fn ui(&mut self, ui: &mut egui::Ui, _frame: &mut eframe::Frame) {
+        egui::Panel::top("brainfuck_code_panel").show_inside(ui, |ui| {
             ui.group(|ui| {
                 ui.heading("Brainfuck code");
                 if ui
@@ -305,12 +308,12 @@ impl eframe::App for BrainfuckGui {
         });
 
         // Get half width of the screen for side panels
-        let half = ctx.content_rect().width() * 0.5;
+        let half = ui.ctx().content_rect().width() * 0.5;
 
-        egui::SidePanel::left("input_panel")
+        egui::Panel::left("input_panel")
             .resizable(false)
-            .exact_width(half)
-            .show(ctx, |ui| {
+            .exact_size(half)
+            .show_inside(ui, |ui| {
                 ui.heading("Input");
 
                 ui.add_space(4.0);
@@ -323,10 +326,10 @@ impl eframe::App for BrainfuckGui {
                 );
             });
 
-        egui::SidePanel::right("output_panel")
+        egui::Panel::right("output_panel")
             .resizable(false)
-            .exact_width(half)
-            .show(ctx, |ui| {
+            .exact_size(half)
+            .show_inside(ui, |ui| {
                 ui.heading("Output");
 
                 ui.add_space(4.0);
@@ -344,14 +347,9 @@ impl eframe::App for BrainfuckGui {
                     ui.add_space(6.0);
 
                     if ui.button("Copy").clicked() {
-                        ctx.copy_text(output);
+                        ui.ctx().copy_text(output);
                     }
                 }
             });
-
-        // If the interpreter is running, request a repaint to update the UI
-        if self.running {
-            ctx.request_repaint();
-        }
     }
 }
