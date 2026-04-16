@@ -472,7 +472,7 @@ dependencies = [
 [[package]]
 name = "brainfuck-rs"
 version = "1.0.0"
-source = "git+https://github.com/jaudiger/brainfuck-rs?rev=6d537569b24454bf1e98565a165042146249e917#6d537569b24454bf1e98565a165042146249e917"
+source = "git+https://github.com/jaudiger/brainfuck-rs?rev=3c190850998bb8ee8da96c59e3977ab1ecc466bf#3c190850998bb8ee8da96c59e3977ab1ecc466bf"
 
 [[package]]
 name = "bumpalo"
