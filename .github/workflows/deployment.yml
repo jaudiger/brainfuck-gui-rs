@@ -2,12 +2,12 @@ name: Continuous Deployment
 
 on:
   workflow_run:
-    workflows: ["Continuous Integration - Static Analysis (Rust)", "Continuous Integration - Audit (Rust)"]
+    workflows: ["Continuous Integration - Static Analysis (Rust)"]
     types: [completed]
     branches: [main]
 
 concurrency:
-  group: deployment
+  group: deployment-${{ github.ref_name }}
   cancel-in-progress: false
 
 env:
@@ -16,8 +16,7 @@ env:
 
 jobs:
   deployment:
-    if: ${{ github.event.workflow_run.conclusion == 'success'
-      && github.event.workflow_run.name == 'Continuous Integration - Static Analysis (Rust)' }}
+    if: ${{ github.event.workflow_run.conclusion == 'success' }}
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
