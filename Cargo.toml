@@ -6,13 +6,13 @@ edition = "2024"
 rust-version = "1.95"
 
 [dependencies]
-brainfuck-rs = { git = "https://github.com/jaudiger/brainfuck-rs", rev = "3c190850998bb8ee8da96c59e3977ab1ecc466bf" }
+brainfuck-rs = { git = "https://github.com/jaudiger/brainfuck-rs", rev = "ed0c62c89f72fc9581eca3c49ca923c06620251c" }
 egui = "0.34.1"
 eframe = { version = "0.34.1", features = ["wgpu"] }
 tracing = "0.1.44"
 
 [target.'cfg(target_arch = "wasm32")'.dependencies]
-wasm-bindgen-futures = "0.4.65"
+wasm-bindgen-futures = "0.4.70"
 tracing-wasm = "0.2.1"
 
 [lints.clippy]
