@@ -2,57 +2,12 @@ name: Continuous Deployment
 
 on:
   workflow_run:
-    workflows: ["Continuous Integration - Static Analysis (Rust)"]
+    workflows: ["CI"]
     types: [completed]
     branches: [main]
 
-concurrency:
-  group: deployment-${{ github.ref_name }}
-  cancel-in-progress: false
-
-env:
-  WASM_TARGET: wasm32-unknown-unknown
-  TRUNK_OUTPUT_DIR: dist
-
 jobs:
-  deployment:
+  deploy:
     if: ${{ github.event.workflow_run.conclusion == 'success' }}
-    runs-on: ubuntu-latest
-    steps:
-      - name: Checkout
-        uses: actions/checkout@v6.0.2
-
-      - name: Install Rust (stable)
-        uses: dtolnay/rust-toolchain@v1
-        with:
-          toolchain: stable
-          targets: ${{ env.WASM_TARGET }}
-
-      - name: Install Brioche
-        uses: brioche-dev/setup-brioche@v1.5.0
-
-      - name: Install trunk
-        run: brioche install -r trunk
-
-      - name: Cache cargo registry + build
-        uses: actions/cache@v5.0.5
-        with:
-          path: |
-            ~/.cargo/.crates.toml
-            ~/.cargo/.crates2.json
-            ~/.cargo/bin
-            ~/.cargo/git/db
-            ~/.cargo/registry/cache
-            ~/.cargo/registry/index
-            target
-          key: deployment-${{ hashFiles('**/Cargo.lock') }}
-
-      - name: Build
-        run: trunk build --release --public-url "/"
-
-      - name: Deploy to Cloudflare Pages
-        uses: cloudflare/wrangler-action@v4.0.0
-        with:
-          apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
-          accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
-          command: pages deploy ${{ env.TRUNK_OUTPUT_DIR }} --project-name=${{ github.event.repository.name }} --branch=${{ github.ref_name }}
+    uses: jaudiger/reusable-workflows/.github/workflows/deploy-rust-cloudflare-pages.yml@af70992c9dcbb3bf0a833629b18cb661b7c616fe
+    secrets: inherit
