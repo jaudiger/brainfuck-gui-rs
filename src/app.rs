@@ -242,7 +242,7 @@ impl eframe::App for BrainfuckGui {
     }
 
     fn ui(&mut self, ui: &mut egui::Ui, _frame: &mut eframe::Frame) {
-        egui::Panel::top("brainfuck_code_panel").show_inside(ui, |ui| {
+        egui::Panel::top("brainfuck_code_panel").show(ui, |ui| {
             ui.group(|ui| {
                 ui.heading("Brainfuck code");
                 if ui
@@ -313,7 +313,7 @@ impl eframe::App for BrainfuckGui {
         egui::Panel::left("input_panel")
             .resizable(false)
             .exact_size(half)
-            .show_inside(ui, |ui| {
+            .show(ui, |ui| {
                 ui.heading("Input");
 
                 ui.add_space(4.0);
@@ -329,7 +329,7 @@ impl eframe::App for BrainfuckGui {
         egui::Panel::right("output_panel")
             .resizable(false)
             .exact_size(half)
-            .show_inside(ui, |ui| {
+            .show(ui, |ui| {
                 ui.heading("Output");
 
                 ui.add_space(4.0);
